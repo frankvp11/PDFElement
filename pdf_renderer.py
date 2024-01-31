@@ -14,16 +14,21 @@ class PDFRenderer(Element, component='pdf_rendering_better.js'):
         """
         super().__init__()
         self._props['pdf_path'] = pdf_path
-        self.on("PagesUpdated", lambda e:  self.update_pages(e))        
+        self.on("PagesUpdated", lambda e:  self.update_pages(e))     
+        self.on("all_points", lambda e:  self.update_points(e))   
 
-    # def render_page(self, pagenumber:int):
-    #     print("Rendering page!")
-    #     self.run_method("renderPage", pagenumber)
+
+    def update_points(self, event):
+        # print(event)
+        print("EVent")
+        print(event.args['all_points'])
+        print("Props")
+        # print(self._props)
+        self._props['allPoints'][event.args['pagenumber']] = event.args['all_points']
+        print(self._props['allPoints'])
 
 
     def update_pages(self, event):
         print(event)
         self._props["numPages"] = event.args['pages']
-        for i in range(1, event.args['pages']+1):
-            self.run_method("renderPage", i)
-        print("Done")
+        self._props['allPoints'] = {i:[] for i in range(event.args['pages'])}
