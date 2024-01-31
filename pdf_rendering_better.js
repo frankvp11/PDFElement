@@ -7,6 +7,7 @@ export default {
         pdf_path: String,
         numPages : Number,
         allPoints: Object,
+        mostPreviousPageNumber: Number,
     },
     
 
@@ -28,6 +29,7 @@ export default {
     },
     return_all_points(all_points, pagenumber){
         this.$emit('all_points', {"all_points": all_points, "pagenumber": pagenumber-1});
+        this.$emit('mostPreviousPageNumber', {"previousPageNumber": pagenumber-1});
     },
 
     async renderPage(pageNum) {
@@ -153,8 +155,6 @@ export default {
             });
 
             canvas.addEventListener('mousedown', (event) => {
-              // self.mostPreviousPageNumber = pageNum; // update the most previous page number
-              console.log("Clicked!", self.mostPreviousPageNumber)
 
 
               const rect = canvas.getBoundingClientRect();
