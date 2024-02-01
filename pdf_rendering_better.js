@@ -15,6 +15,7 @@ export default {
 
     await this.$nextTick(); // NOTE: wait for window.path_prefix to be set
     await loadResource("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js");
+
     this.pdfDoc= await pdfjsLib.getDocument(this.pdf_path).promise;
     this.Pages = this.pdfDoc.numPages;
     
@@ -83,7 +84,7 @@ export default {
                       context.fillRect(0, 0, topLeft.x, canvas.height);
                       context.fillRect(topLeft.x, 0, canvas.width, topRight.y);
                       context.fillRect(bottomLeft.x, bottomLeft.y, canvas.width, canvas.height);
-                      context.fillRect(topRight.x, topRight.y, bottomRight.x, bottomLeft.y-topRight.y);
+                      context.fillRect(topRight.x, topRight.y, bottomRight.x-bottomLeft.x, bottomLeft.y-topRight.y);
                   }
 
 
